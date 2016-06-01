@@ -1,0 +1,24 @@
+{
+  "name": "fluro.asset",
+  "description": "A client side service for retrieving asset information from the Fluro API",
+  "homepage": "http://www.fluro.io",
+  "authors": [
+    "Cade Embery"
+  ],
+  "main": "./dist/fluro.asset.js",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Hyperblaster/fluro.asset.git"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "fluro.config": "*"
+  }
+}
