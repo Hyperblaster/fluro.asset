@@ -86,6 +86,12 @@ angular.module('fluro.asset')
 
     //////////////////////////////////////////////////
 
+    //Check if retina screen
+    var isRetina = window.devicePixelRatio > 1;
+    console.log('is retina')
+    
+    //////////////////////////////////////////////////
+
     //Helper function for retrieving an image
     controller.imageUrl = function(_id, w, h, params) {
 
@@ -99,16 +105,33 @@ angular.module('fluro.asset')
         //////////////////////////////////////
 
         //Setup our usual width limit
-        var limitWidth = 1920;
+        var limitWidth;
+
+        //By default, limit the width
+        if(isRetina) {
+            limitWidth = 1920;
+        } else {
+            limitWidth = 1200;
+        }
+
+        //////////////////////////////////////
 
         //If the screen is smaller then 768 use an optimised image
         if ($window.screen.width <= 768) {
-            limitWidth = 1536;
+            if(isRetina) {
+                limitWidth = 1536;
+            } else {
+                limitWidth = 768;
+            }
         }
 
         //If using mobile then use a smaller optimised image
         if ($window.screen.width <= 320) {
-            limitWidth = 640;
+            if(isRetina) {
+               limitWidth = 640;
+            } else {
+                limitWidth = 320;
+            }
         }
 
         ////////////////////////////////////
