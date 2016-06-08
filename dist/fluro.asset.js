@@ -177,6 +177,13 @@ angular.module('fluro.asset')
 
         ////////////////////////////////////////
 
+        //Default to 90% quality huge compression gains
+        if(!params.quality) {
+            params.quality = 90;
+        }
+
+        ////////////////////////////////////////
+
         //Remap all the extra parameters as query string variables
         var queryParams = _.map(params, function(v, k) {
             return encodeURIComponent(k) + '=' + encodeURIComponent(v);
