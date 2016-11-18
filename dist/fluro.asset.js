@@ -256,10 +256,12 @@ angular.module('fluro.asset')
 
     /////////////////////////////////////////////////////
 
-    //Create a straight forced download url
-    controller.avatarUrl = function(id) {
+    //Create a straight forced download url     
+    controller.avatarUrl = function(id, type) {
+        //if not provided default to user
+        if(!type) { type = 'user' };
 
-        var url = Fluro.apiURL + '/get/avatar/user/' + id;
+        var url = Fluro.apiURL + '/get/avatar/' + type + '/' + id;
 
         //Append the token if we have one
         if (Fluro.token) {
