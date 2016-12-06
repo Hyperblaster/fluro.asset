@@ -3,7 +3,7 @@
 angular.module('fluro.asset', []);
 angular.module('fluro.asset')
 
-.service('Asset', function(Fluro, $window) {
+.service('Asset', ['Fluro', '$window', function(Fluro, $window) {
 
     var controller = {}
 
@@ -294,4 +294,4 @@ angular.module('fluro.asset')
     /////////////////////////////////////////////////////
 
     return controller;
-});
+}]);
