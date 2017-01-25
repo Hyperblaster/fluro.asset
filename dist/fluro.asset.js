@@ -12,6 +12,10 @@ angular.module('fluro.asset')
     //Retrieve an asset API url
     controller.getUrl = function(id, params) {
 
+        if(!id) {
+            return;
+        }
+
         var extension;
 
         ////////////////////////////////////
@@ -96,9 +100,9 @@ angular.module('fluro.asset')
     controller.imageUrl = function(_id, w, h, params) {
 
         if(!_id) {
-            return '';
+            return;
         }
-        
+
         if (!params) {
             params = {};
         }
@@ -208,6 +212,10 @@ angular.module('fluro.asset')
     //Create a straight forced download url
     controller.downloadUrl = function(id, params) {
 
+        if(!id) {
+            return;
+        }
+
         if (!params) {
             params = {};
         }
@@ -262,7 +270,7 @@ angular.module('fluro.asset')
 
     //Create a straight forced download url
     controller.avatarUrl = function(id, style, params) {
-
+        
         if (!params) {
             params = {};
         }
