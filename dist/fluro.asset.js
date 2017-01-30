@@ -49,7 +49,11 @@ angular.module('fluro.asset')
        
         //If an extension was provided add it to the url
         if(params.extension && params.extension.length) {
-            url += '/file/file.' + params.extension;
+            if(params.filename && params.filename.length) {
+                url += '/file/'+ params.filename +'.' + params.extension;
+            } else {
+                url += '/file/file.' + params.extension;
+            }
 
             //Dont need to include it anymore
             delete params.extension;
@@ -166,7 +170,11 @@ angular.module('fluro.asset')
        
         //If a file extension was provided append it to the url
         if(params.extension && params.extension.length) {
-            url += '/file/file.' + params.extension;
+            if(params.filename && params.filename.length) {
+                url += '/file/'+ params.filename +'.' + params.extension;
+            } else {
+                url += '/file/file.' + params.extension;
+            }
 
             //Dont need to include it in the query string
             delete params.extension;
@@ -228,7 +236,12 @@ angular.module('fluro.asset')
        
         //If a file extension was provided append it to the url
         if(params.extension && params.extension.length) {
-            url += '/file/file.' + params.extension;
+
+            if(params.filename && params.filename.length) {
+                url += '/file/'+ params.filename +'.' + params.extension;
+            } else {
+                url += '/file/file.' + params.extension;
+            }
 
             //Dont need to include it in the query string
             delete params.extension;
