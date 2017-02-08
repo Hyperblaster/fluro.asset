@@ -12,7 +12,7 @@ angular.module('fluro.asset')
     //Retrieve an asset API url
     controller.getUrl = function(id, params) {
 
-        if(!id) {
+        if (!id) {
             return;
         }
 
@@ -26,7 +26,7 @@ angular.module('fluro.asset')
         }
 
         ////////////////////////////////////
-        
+
         //Create a parameters object
         if (!params) {
             params = {};
@@ -46,11 +46,11 @@ angular.module('fluro.asset')
         }
 
         ////////////////////////////////////
-       
+
         //If an extension was provided add it to the url
-        if(params.extension && params.extension.length) {
-            if(params.filename && params.filename.length) {
-                url += '/file/'+ params.filename +'.' + params.extension;
+        if (params.extension && params.extension.length) {
+            if (params.filename && params.filename.length) {
+                url += '/file/' + params.filename + '.' + params.extension;
             } else {
                 url += '/file/file.' + params.extension;
             }
@@ -62,7 +62,7 @@ angular.module('fluro.asset')
         ////////////////////////////////////////
 
         //If we haven't requested without token
-        if(!params.withoutToken) {
+        if (!params.withoutToken) {
 
             //Check to see if we have a token and none has been explicity set
             if (!params['access_token'] && Fluro.token) {
@@ -89,7 +89,9 @@ angular.module('fluro.asset')
 
     //Deprecated function for retrieving a 50px thumbnail
     controller.thumbnailUrl = function(id) {
-        return controller.getUrl(id, {w:50});
+        return controller.getUrl(id, {
+            w: 50
+        });
     }
 
     //////////////////////////////////////////////////
@@ -97,13 +99,13 @@ angular.module('fluro.asset')
     //Check if retina screen
     var isRetina = window.devicePixelRatio > 1;
     console.log('is retina')
-    
+
     //////////////////////////////////////////////////
 
     //Helper function for retrieving an image
     controller.imageUrl = function(_id, w, h, params) {
 
-        if(!_id) {
+        if (!_id) {
             return;
         }
 
@@ -120,7 +122,7 @@ angular.module('fluro.asset')
         var limitWidth;
 
         //By default, limit the width
-        if(isRetina) {
+        if (isRetina) {
             limitWidth = 1920;
         } else {
             limitWidth = 1200;
@@ -130,7 +132,7 @@ angular.module('fluro.asset')
 
         //If the screen is smaller then 768 use an optimised image
         if ($window.screen.width <= 768) {
-            if(isRetina) {
+            if (isRetina) {
                 limitWidth = 1536;
             } else {
                 limitWidth = 768;
@@ -139,8 +141,8 @@ angular.module('fluro.asset')
 
         //If using mobile then use a smaller optimised image
         if ($window.screen.width <= 320) {
-            if(isRetina) {
-               limitWidth = 640;
+            if (isRetina) {
+                limitWidth = 640;
             } else {
                 limitWidth = 320;
             }
@@ -167,11 +169,11 @@ angular.module('fluro.asset')
 
 
         ////////////////////////////////////
-       
+
         //If a file extension was provided append it to the url
-        if(params.extension && params.extension.length) {
-            if(params.filename && params.filename.length) {
-                url += '/file/'+ params.filename +'.' + params.extension;
+        if (params.extension && params.extension.length) {
+            if (params.filename && params.filename.length) {
+                url += '/file/' + params.filename + '.' + params.extension;
             } else {
                 url += '/file/file.' + params.extension;
             }
@@ -183,7 +185,7 @@ angular.module('fluro.asset')
         ////////////////////////////////////////
 
         //If we haven't requested without token
-        if(!params.withoutToken) {
+        if (!params.withoutToken) {
 
             //Check to see if we have a token and none has been explicity set
             if (!params['access_token'] && Fluro.token) {
@@ -194,7 +196,7 @@ angular.module('fluro.asset')
         ////////////////////////////////////////
 
         //Default to 90% quality huge compression gains
-        if(!params.quality) {
+        if (!params.quality) {
             params.quality = 90;
         }
 
@@ -215,7 +217,7 @@ angular.module('fluro.asset')
         ////////////////////////////////////////
 
         //Check if we want a data uri instead of url
-        if(params.base64) {
+        if (params.base64) {
 
             var requestConfig = {
                 method: 'get',
@@ -225,27 +227,25 @@ angular.module('fluro.asset')
             };
 
             //Make the request
-            $http(requestConfig)
-                .success(function(data) {
-                    var arr = new Uint8Array(data);
+            $http(requestConfig).then(function(data) {
+                var arr = new Uint8Array(data);
 
-                    var raw = '';
-                    var i, j, subArray, chunk = 5000;
-                    for (i = 0, j = arr.length; i < j; i += chunk) {
-                        subArray = arr.subarray(i, i + chunk);
-                        raw += String.fromCharCode.apply(null, subArray);
-                    }
+                var raw = '';
+                var i, j, subArray, chunk = 5000;
+                
+                for(i = 0, j = arr.length; i < j; i += chunk) {
+                    subArray = arr.subarray(i, i + chunk);
+                    raw += String.fromCharCode.apply(null, subArray);
+                }
 
-                    //Base64 Encode the image
-                    var b64 = btoa(raw);
+                //Base64 Encode the image
+                var b64 = btoa(raw);
 
-                    console.log('return blob')
+                console.log('return blob')
 
-                    //Update the result url with the data
-                    return "data:image/jpeg;base64," + b64;
-
-
-                });
+                //Update the result url with the data
+                return "data:image/jpeg;base64," + b64;
+            });
         } else {
             return url;
         }
@@ -257,7 +257,7 @@ angular.module('fluro.asset')
     //Create a straight forced download url
     controller.downloadUrl = function(id, params) {
 
-        if(!id) {
+        if (!id) {
             return;
         }
 
@@ -270,12 +270,12 @@ angular.module('fluro.asset')
 
 
         ////////////////////////////////////
-       
-        //If a file extension was provided append it to the url
-        if(params.extension && params.extension.length) {
 
-            if(params.filename && params.filename.length) {
-                url += '/file/'+ params.filename +'.' + params.extension;
+        //If a file extension was provided append it to the url
+        if (params.extension && params.extension.length) {
+
+            if (params.filename && params.filename.length) {
+                url += '/file/' + params.filename + '.' + params.extension;
             } else {
                 url += '/file/file.' + params.extension;
             }
@@ -287,7 +287,7 @@ angular.module('fluro.asset')
         ////////////////////////////////////////
 
         //If we haven't requested without token
-        if(!params.withoutToken) {
+        if (!params.withoutToken) {
 
             //Check to see if we have a token and none has been explicity set
             if (!params['access_token'] && Fluro.token) {
@@ -320,17 +320,17 @@ angular.module('fluro.asset')
 
     //Create a straight forced download url
     controller.avatarUrl = function(id, style, params) {
-        
+
         if (!params) {
             params = {};
         }
 
         //////////////////////////////////
 
-        if(!style) {
+        if (!style) {
             style = 'user';
         }
-        var url = Fluro.apiURL + '/get/avatar/'+style+'/' + id;
+        var url = Fluro.apiURL + '/get/avatar/' + style + '/' + id;
 
         //Append the token if we have one
         if (Fluro.token) {
