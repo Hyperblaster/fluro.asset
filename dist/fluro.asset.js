@@ -224,8 +224,6 @@ angular.module('fluro.asset')
                 cache: 'true'
             };
 
-            var result = {};
-
             //Make the request
             $http(requestConfig)
                 .success(function(data) {
@@ -242,16 +240,12 @@ angular.module('fluro.asset')
                     var b64 = btoa(raw);
 
                     //Update the result url with the data
-                    result.url = "data:image/jpeg;base64," + b64;
+                    return "data:image/jpeg;base64," + b64;
 
                 });
-
-            return result;
+        } else {
+            return url;
         }
-
-
-        //Return the URL
-        return url;
     }
 
 
