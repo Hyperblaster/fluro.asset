@@ -3,7 +3,7 @@
 angular.module('fluro.asset', []);
 angular.module('fluro.asset')
 
-.service('Asset', ['Fluro', '$window', function(Fluro, $window) {
+.service('Asset', ['Fluro', '$window', '$http', function(Fluro, $window, $http) {
 
     var controller = {}
 
@@ -211,6 +211,46 @@ angular.module('fluro.asset')
             url += '?' + queryParams;
         }
 
+
+        ////////////////////////////////////////
+
+        //Check if we want a data uri instead of url
+        if(params.base64) {
+
+            var requestConfig = {
+                method: 'get',
+                url: url,
+                responseType: 'arraybuffer',
+                cache: 'true'
+            };
+
+            var result = {};
+
+            //Make the request
+            $http(requestConfig)
+                .success(function(data) {
+                    var arr = new Uint8Array(data);
+
+                    var raw = '';
+                    var i, j, subArray, chunk = 5000;
+                    for (i = 0, j = arr.length; i < j; i += chunk) {
+                        subArray = arr.subarray(i, i + chunk);
+                        raw += String.fromCharCode.apply(null, subArray);
+                    }
+
+                    //Base64 Encode the image
+                    var b64 = btoa(raw);
+
+                    //Update the result url with the data
+                    result.url = "data:image/jpeg;base64," + b64;
+
+                });
+
+            return result;
+        }
+
+
+        //Return the URL
         return url;
     }
 
