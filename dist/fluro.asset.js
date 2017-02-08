@@ -1,6 +1,8 @@
 
 //Create Fluro UI With dependencies
 angular.module('fluro.asset', []);
+console.log('Asset updated');
+
 angular.module('fluro.asset')
 
 .service('Asset', ['Fluro', '$window', '$http', function(Fluro, $window, $http) {
