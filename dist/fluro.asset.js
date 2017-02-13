@@ -1,7 +1,6 @@
 
 //Create Fluro UI With dependencies
 angular.module('fluro.asset', []);
-console.log('Asset updated');
 
 angular.module('fluro.asset')
 
@@ -100,7 +99,52 @@ angular.module('fluro.asset')
 
     //Check if retina screen
     var isRetina = window.devicePixelRatio > 1;
-    console.log('is retina')
+
+    //////////////////////////////////////////////////
+
+    //Helper function for retrieving the poster image for a video
+    controller.posterUrl = function(_id, w, h, params) {
+        if (!_id) {
+            return;
+        }
+
+        if (!params) {
+            params = {}
+        }
+
+        //////////////////////////////////////////////////
+
+        if(w) {
+            params['w'] = w;
+        } else {
+            params['w'] = 1920;
+        }
+
+        if(h) {
+            params['h'] = h;
+        } else {
+            params['h'] = 1080;
+        }
+
+        //////////////////////////////////////////////////
+
+
+        //Create the basic url
+        var url = Fluro.apiURL + '/get/' + _id + '/poster';
+
+        //////////////////////////////////////////////////
+
+        //Remap all the extra parameters as query string variables
+        var queryParams = _.map(params, function(v, k) {
+            return encodeURIComponent(k) + '=' + encodeURIComponent(v);
+        }).join('&');
+
+
+        //Add the question mark if there are variables
+        if (queryParams.length) {
+            url += '?' + queryParams;
+        }
+    }
 
     //////////////////////////////////////////////////
 
@@ -216,9 +260,9 @@ angular.module('fluro.asset')
         }
 
 
-        
+
         return url;
-        
+
     }
 
 
