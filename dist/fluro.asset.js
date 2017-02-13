@@ -144,6 +144,8 @@ angular.module('fluro.asset')
         if (queryParams.length) {
             url += '?' + queryParams;
         }
+
+        return url;
     }
 
     //////////////////////////////////////////////////
