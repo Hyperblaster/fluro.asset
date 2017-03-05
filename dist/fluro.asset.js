@@ -1,7 +1,6 @@
 
 //Create Fluro UI With dependencies
 angular.module('fluro.asset', []);
-
 angular.module('fluro.asset')
 
 .service('Asset', ['Fluro', '$window', '$http', function(Fluro, $window, $http) {
@@ -114,17 +113,29 @@ angular.module('fluro.asset')
 
         //////////////////////////////////////////////////
 
-        if(w) {
+        if (w) {
             params['w'] = w;
         } else {
             params['w'] = 1920;
         }
 
-        if(h) {
+        if (h) {
             params['h'] = h;
         } else {
             params['h'] = 1080;
         }
+
+        ////////////////////////////////////////
+
+        //If we haven't requested without token
+        if (!params.withoutToken) {
+
+            //Check to see if we have a token and none has been explicity set
+            if (!params['access_token'] && Fluro.token) {
+                params['access_token'] = Fluro.token;
+            }
+        }
+
 
         //////////////////////////////////////////////////
 
