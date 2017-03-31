@@ -150,7 +150,7 @@ angular.module('fluro.asset')
         if (!w && !h) {
             //Use our default width based on screen size
             params['w'] = limitWidth;
-            params['h'] = Math.round(limitWidth / (16 * 9));
+            params['h'] = Math.round(limitWidth * (9 /16));
         } else {
 
             //If a width was specified
@@ -159,7 +159,7 @@ angular.module('fluro.asset')
 
                 if(!h) {
                     //If no height specified calculate based on aspect ratio
-                    params['h'] = Math.round(w / (16 * 9));
+                    params['h'] = Math.round(w * (9 /16));
                 }
             }
 
