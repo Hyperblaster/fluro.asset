@@ -111,19 +111,81 @@ angular.module('fluro.asset')
             params = {}
         }
 
+
+        //////////////////////////////////////
+
+        //Setup our usual width limit
+        var limitWidth;
+
+        //By default, limit the width
+        if (isRetina) {
+            limitWidth = 1920;
+        } else {
+            limitWidth = 1200;
+        }
+
+        //////////////////////////////////////
+
+        //If the screen is smaller then 768 use an optimised image
+        if ($window.screen.width <= 768) {
+            if (isRetina) {
+                limitWidth = 1536;
+            } else {
+                limitWidth = 768;
+            }
+        }
+
+        //If using mobile then use a smaller optimised image
+        if ($window.screen.width <= 320) {
+            if (isRetina) {
+                limitWidth = 640;
+            } else {
+                limitWidth = 320;
+            }
+        }
+
         //////////////////////////////////////////////////
 
-        if (w) {
-            params['w'] = w;
+        //If no width or height was specified
+        if (!w && !h) {
+            //Use our default width based on screen size
+            params['w'] = limitWidth;
+            params['h'] = limitWidth * (16 / 9);
         } else {
-            params['w'] = 1920;
-        }
 
-        if (h) {
-            params['h'] = h;
-        } else {
-            params['h'] = 1080;
+            //If a width was specified
+            if (w) {
+                params['w'] = w;
+
+                if(!h) {
+                    //If no height specified calculate based on aspect ratio
+                    params['h'] = w * (16 / 9);
+                }
+            }
+
+            //If a height was specified
+            if (h) {
+                params['h'] = h;
+            }
         }
+        
+        //////////////////////////////////////////////////
+
+
+        // if (w) {
+        //     params['w'] = w;
+        // } else {
+        //     params['w'] = 1920;
+        // }
+
+        // if (h) {
+        //     params['h'] = h;
+        // } else {
+        //     params['h'] = 1080;
+        // }
+
+
+
 
         ////////////////////////////////////////
 
