@@ -51,6 +51,7 @@ angular.module('fluro.asset')
         if (params.extension && params.extension.length) {
             if (params.filename && params.filename.length) {
                 url += '/file/' + params.filename + '.' + params.extension;
+                delete params.filename;
             } else {
                 url += '/file/file.' + params.extension;
             }
@@ -170,23 +171,6 @@ angular.module('fluro.asset')
         }
         
         //////////////////////////////////////////////////
-
-
-        // if (w) {
-        //     params['w'] = w;
-        // } else {
-        //     params['w'] = 1920;
-        // }
-
-        // if (h) {
-        //     params['h'] = h;
-        // } else {
-        //     params['h'] = 1080;
-        // }
-
-
-
-
         ////////////////////////////////////////
 
         //If we haven't requested without token
@@ -212,6 +196,7 @@ angular.module('fluro.asset')
         if (params.extension && params.extension.length) {
             if (params.filename && params.filename.length) {
                 url += '/file/' + params.filename + '.' + params.extension;
+                delete params.filename;
             } else {
                 url += '/file/file.' + params.extension;
             }
@@ -310,6 +295,7 @@ angular.module('fluro.asset')
         if (params.extension && params.extension.length) {
             if (params.filename && params.filename.length) {
                 url += '/file/' + params.filename + '.' + params.extension;
+                delete params.filename;
             } else {
                 url += '/file/file.' + params.extension;
             }
@@ -380,6 +366,7 @@ angular.module('fluro.asset')
 
             if (params.filename && params.filename.length) {
                 url += '/file/' + params.filename + '.' + params.extension;
+                delete params.filename;
             } else {
                 url += '/file/file.' + params.extension;
             }
@@ -458,6 +445,50 @@ angular.module('fluro.asset')
         return url;
 
     }
+
+
+
+    /////////////////////////////////////////////////////
+
+    //Get the cover photo for an event if available
+    controller.coverPhoto = function(id, style) {
+
+        if (!params) {
+            params = {};
+        }
+
+        if(!style || !style.length) {
+            style = 'event';
+        }
+
+        //////////////////////////////////
+        var url = Fluro.apiURL + '/get/'+style+'/' + id;
+
+        //Append the token if we have one
+        if (Fluro.token) {
+            params['access_token'] = Fluro.token;
+        }
+
+        ////////////////////////////////////////
+
+        //Remap all the extra parameters as query string variables
+        var queryParams = _.map(params, function(v, k) {
+            return encodeURIComponent(k) + '=' + encodeURIComponent(v);
+        }).join('&');
+
+
+        //Add the question mark if there are variables
+        if (queryParams.length) {
+            url += '?' + queryParams;
+        }
+
+        return url;
+
+    }
+
+
+
+
 
     /////////////////////////////////////////////////////
 
