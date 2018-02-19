@@ -204,17 +204,29 @@ angular.module('fluro.asset')
 
         ////////////////////////////////////
 
-        //If a file extension was provided append it to the url
+        //If an extension was provided add it to the url
         if (params.extension && params.extension.length) {
-            if (params.filename && params.filename.length) {
-                url += '/file/' + params.filename + '.' + params.extension;
-                delete params.filename;
-            } else {
-                url += '/file/file.' + params.extension;
-            }
 
-            //Dont need to include it in the query string
+            if(params.title && params.title.length) {
+                url += '/file/' + params.title + '.' + params.extension;
+                delete params.title;
+            } else {
+                if (params.filename && params.filename.length) {
+                    url += '/file/' + params.filename + '.' + params.extension;
+                    delete params.filename;
+                } else {
+                    url += '/file/file.' + params.extension;
+                }
+            }
+            
+
+            //Dont need to include it anymore
             delete params.extension;
+        } else {
+            if (params.filename && params.filename.length) {
+                url += '/file/' + params.filename;
+                delete params.filename;
+            }
         }
 
         //////////////////////////////////////////////////
@@ -303,17 +315,29 @@ angular.module('fluro.asset')
 
         ////////////////////////////////////
 
-        //If a file extension was provided append it to the url
+        //If an extension was provided add it to the url
         if (params.extension && params.extension.length) {
-            if (params.filename && params.filename.length) {
-                url += '/file/' + params.filename + '.' + params.extension;
-                delete params.filename;
-            } else {
-                url += '/file/file.' + params.extension;
-            }
 
-            //Dont need to include it in the query string
+            if(params.title && params.title.length) {
+                url += '/file/' + params.title + '.' + params.extension;
+                delete params.title;
+            } else {
+                if (params.filename && params.filename.length) {
+                    url += '/file/' + params.filename + '.' + params.extension;
+                    delete params.filename;
+                } else {
+                    url += '/file/file.' + params.extension;
+                }
+            }
+            
+
+            //Dont need to include it anymore
             delete params.extension;
+        } else {
+            if (params.filename && params.filename.length) {
+                url += '/file/' + params.filename;
+                delete params.filename;
+            }
         }
 
         ////////////////////////////////////////
