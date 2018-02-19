@@ -49,15 +49,27 @@ angular.module('fluro.asset')
 
         //If an extension was provided add it to the url
         if (params.extension && params.extension.length) {
-            if (params.filename && params.filename.length) {
-                url += '/file/' + params.filename + '.' + params.extension;
-                delete params.filename;
+
+            if(params.title && params.title.length) {
+                url += '/file/' + params.title + '.' + params.extension;
+                delete params.title;
             } else {
-                url += '/file/file.' + params.extension;
+                if (params.filename && params.filename.length) {
+                    url += '/file/' + params.filename + '.' + params.extension;
+                    delete params.filename;
+                } else {
+                    url += '/file/file.' + params.extension;
+                }
             }
+            
 
             //Dont need to include it anymore
             delete params.extension;
+        } else {
+            if (params.filename && params.filename.length) {
+                url += '/file/' + params.filename;
+                delete params.filename;
+            }
         }
 
         ////////////////////////////////////////
